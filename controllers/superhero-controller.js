@@ -1,27 +1,12 @@
 import superheroModel from "../models/superhero-model.js";
+import superheroService from "../services/superhero-service.js";
 
 class SuperheroController {
   async createSuperhero(req, res) {
     try {
-      const {
-        nickname,
-        real_name,
-        origin_description,
-        superpowers,
-        catch_phrase,
-        Images,
-      } = req.body;
+      const seperhero = await superheroService.createSuperhero(req.body);
 
-      const currentSuperhero = await superheroModel.create({
-        nickname,
-        real_name,
-        origin_description,
-        superpowers,
-        catch_phrase,
-        Images,
-      });
-
-      res.json(currentSuperhero);
+      res.json(seperhero);
     } catch (error) {
       res.status(500).json(error);
     }
@@ -29,7 +14,7 @@ class SuperheroController {
 
   async getAllSuperheroes(req, res) {
     try {
-      const superheroes = await superheroModel.find();
+      const superheroes = await superheroService.getAllSuperheroes();
 
       return res.json(superheroes);
     } catch (error) {
@@ -41,11 +26,9 @@ class SuperheroController {
     try {
       const { id } = req.params;
 
-      const foundedSuperhero = await superheroModel.findById(id);
+      const superhero = await superheroService.getOneSuperhero(id);
 
-      return id
-        ? res.json(foundedSuperhero)
-        : res.status(400).json("Superhero not found");
+      return res.json(superhero);
     } catch (error) {
       res.status(500).json(error);
     }
@@ -55,16 +38,8 @@ class SuperheroController {
     try {
       const newSuperhero = req.body;
 
-      if (!newSuperhero._id) {
-        return res.status(400).json("Id not found");
-      }
-
-      const updatedSuperhero = await superheroModel.findByIdAndUpdate(
-        newSuperhero._id,
-        newSuperhero,
-        {
-          new: true,
-        }
+      const updatedSuperhero = await superheroService.updateOneSuperhero(
+        newSuperhero
       );
 
       return res.json(updatedSuperhero);
@@ -75,6 +50,11 @@ class SuperheroController {
 
   async deleteOneSuperhero(req, res) {
     try {
+      const { id } = req.params;
+
+      const removedSuperhero = await superheroService.deleteOneSuperhero(id);
+
+      return res.json(removedSuperhero);
     } catch (error) {
       res.status(500).json(error);
     }

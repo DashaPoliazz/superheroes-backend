@@ -1,19 +1,19 @@
-const express = require("express");
-const dotenv = require("dotenv");
+import express from "express";
+import dotenv from "dotenv";
 dotenv.config();
-const cors = require("cors");
-const mongoose = require("mongoose");
+import cors from "cors";
+import mongoose from "mongoose";
 
+import router from "./router/index.js";
+
+// Models
 const PORT = process.env.PORT || 5500;
 const app = express();
 
 //Middlewares
 app.use(express.json());
 app.use(cors());
-
-app.get("/name", (req, res) => {
-  res.json("Hello world");
-});
+app.use("/api", router);
 
 const start = async () => {
   try {

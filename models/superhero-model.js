@@ -21,9 +21,13 @@ const SuperheroSchema = new Schema({
     type: String,
     requiered: true,
   },
+  currentImage: {
+    type: String,
+    required: false,
+  },
   Images: {
     type: Array,
-    required: true,
+    required: false,
   },
 });
 

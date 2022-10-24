@@ -1,4 +1,5 @@
 import { Router } from "express";
+import fileController from "../controllers/file-controller.js";
 
 import SuperheroController from "../controllers/superhero-controller.js";
 
@@ -9,5 +10,7 @@ router.get("/superhero", SuperheroController.getAllSuperheroes);
 router.get("/superhero/:id", SuperheroController.getOneSuperhero);
 router.put("/superhero", SuperheroController.updateOneSuperhero);
 router.delete("/superhero/:id", SuperheroController.deleteOneSuperhero);
+
+router.post("/image", fileController.setCurrentImage);
 
 export default router;

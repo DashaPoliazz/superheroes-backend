@@ -1,8 +1,14 @@
 import superheroModel from "../models/superhero-model.js";
+import fileService from "./file-service.js";
 
 class SuperheroService {
-  async createSuperhero(superheroToCreate) {
-    const createdSuperhero = await superheroModel.create(superheroToCreate);
+  async createSuperhero(superheroToCreate, imageToSet) {
+    const fileName = fileService.saveFile(imageToSet);
+
+    const createdSuperhero = await superheroModel.create({
+      ...superheroToCreate,
+      currentImage: fileName,
+    });
 
     return createdSuperhero;
   }

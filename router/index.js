@@ -18,6 +18,6 @@ router.post(
   $multer.single("currentImage"),
   fileController.configureImage
 );
-router.delete("/image?:imagePublicId", fileController.removeFile);
+router.delete("/image", fileController.removeFile);
 
 export default router;

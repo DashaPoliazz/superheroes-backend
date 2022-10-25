@@ -45,14 +45,12 @@ class FileService {
       throw new Error("Please, provide url of image to remove");
     }
 
-    const result = cloudinaryBase.uploader.destroy(
+    const result = await cloudinaryBase.uploader.destroy(
       imagePublicId,
       (error, result) => {
         console.log(error, result);
       }
     );
-
-    console.log(result);
 
     return result;
   }

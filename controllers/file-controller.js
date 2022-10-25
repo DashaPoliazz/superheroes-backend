@@ -1,5 +1,4 @@
 import fileService from "../services/file-service.js";
-import superheroService from "../services/superhero-service.js";
 
 class FileController {
   async configureImage(req, res) {
@@ -11,12 +10,9 @@ class FileController {
         req.body.superheroId
       );
 
-      const superHeroesWithImage = await fileService.setImage(
-        result.secure_url,
-        req.body.superheroId
-      );
+      await fileService.setImage(result.secure_url, req.body.superheroId);
 
-      res.json(superHeroesWithImage);
+      res.json(result);
     } catch (error) {
       res.status(500).json(error);
       console.log(error);
@@ -25,7 +21,7 @@ class FileController {
 
   async removeFile(req, res) {
     try {
-      const { imagePublicId } = req.params;
+      const { imagePublicId } = req.body;
 
       const result = await fileService.removeImage(imagePublicId);
 

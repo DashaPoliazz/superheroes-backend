@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
 import mongoose from "mongoose";
-import fileupload from "express-fileupload";
+
 import { v2 as cloudinaryBase } from "cloudinary";
 
 import router from "./router/index.js";
@@ -16,7 +16,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.static("static"));
-app.use(fileupload());
 app.use("/api", router);
 
 cloudinaryBase.config({

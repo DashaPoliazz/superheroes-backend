@@ -1,11 +1,33 @@
 import fileService from "../services/file-service.js";
+import superheroService from "../services/superhero-service.js";
 
 class FileController {
-  async setCurrentImage(req, res) {
+  async configureImage(req, res) {
     try {
-      const fileToSet = req.files.currentImage;
+      const fileToSet = req.file;
 
-      const result = await fileService.setImage(fileToSet, req.body._id);
+      const result = await fileService.addImage(
+        fileToSet,
+        req.body.superheroId
+      );
+
+      const superHeroesWithImage = await fileService.setImage(
+        result.secure_url,
+        req.body.superheroId
+      );
+
+      res.json(superHeroesWithImage);
+    } catch (error) {
+      res.status(500).json(error);
+      console.log(error);
+    }
+  }
+
+  async removeFile(req, res) {
+    try {
+      const { imagePublicId } = req.params;
+
+      const result = await fileService.removeImage(imagePublicId);
 
       res.json(result);
     } catch (error) {

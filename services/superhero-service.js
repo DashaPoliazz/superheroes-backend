@@ -3,12 +3,7 @@ import fileService from "./file-service.js";
 
 class SuperheroService {
   async createSuperhero(superheroToCreate, imageToSet) {
-    const fileName = fileService.saveFile(imageToSet);
-
-    const createdSuperhero = await superheroModel.create({
-      ...superheroToCreate,
-      currentImage: fileName,
-    });
+    const createdSuperhero = await superheroModel.create(superheroToCreate);
 
     return createdSuperhero;
   }

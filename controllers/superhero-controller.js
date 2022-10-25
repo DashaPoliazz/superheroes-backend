@@ -4,10 +4,7 @@ import superheroService from "../services/superhero-service.js";
 class SuperheroController {
   async createSuperhero(req, res) {
     try {
-      const seperhero = await superheroService.createSuperhero(
-        req.body,
-        req.files.currentImage
-      );
+      const seperhero = await superheroService.createSuperhero(req.body);
       console.log(req.files.currentImage);
 
       return res.json(seperhero);

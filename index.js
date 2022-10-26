@@ -19,14 +19,16 @@ app.use(express.static("static"));
 app.use("/api", router);
 
 cloudinaryBase.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_SECRET_KEY,
+  cloud_name: "duhprrckc",
+  api_key: "771358562188676",
+  api_secret: "15KrqkI-FBFrIbg0KY5AA5lSYKw",
 });
 
 const start = async () => {
   try {
-    await mongoose.connect(process.env.DATA_BASE_URL);
+    await mongoose.connect(
+      "mongodb+srv://admin:admin@cluster0.ghnydlg.mongodb.net/?retryWrites=true&w=majority"
+    );
 
     app.listen(PORT, () =>
       console.log(`Server has been started on port ${PORT}`)

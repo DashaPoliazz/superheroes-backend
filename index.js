@@ -9,7 +9,7 @@ import { v2 as cloudinaryBase } from "cloudinary";
 import router from "./router/index.js";
 
 // Models
-const PORT = process.env.PORT || 5500;
+const PORT = 5555;
 const app = express();
 
 //Middlewares

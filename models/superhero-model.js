@@ -22,11 +22,11 @@ const SuperheroSchema = new Schema({
     requiered: true,
   },
   currentImage: {
-    type: String,
+    type: Object,
     required: false,
   },
   Images: {
-    type: Array,
+    type: Object,
     required: false,
   },
 });

@@ -17,20 +17,22 @@ class FileService {
     }
   }
 
-  async setImage(imageUrl, superheroeId) {
-    if (!imageUrl || !superheroeId) {
+  async setImage(imageData, superheroeId) {
+    console.log("SECURE_URL:", imageData.secure_url);
+    console.log("PUBLIC_ID:", imageData.public_id);
+    console.log("SUPERHEROID:", superheroeId);
+
+    if (!imageData.imageUrl || !imageData.public_id || !superheroeId) {
       throw new Error("Please, enter imageUrl and superheroesId");
     }
 
     const currentSuperhero = await superheroModel.findById(superheroeId);
 
-    console.log(imageUrl, currentSuperhero);
-
     const updatedSuperhero = await superheroModel.findByIdAndUpdate(
       superheroeId,
       {
-        currentImage: imageUrl,
-        Images: [...currentSuperhero.Images, imageUrl],
+        currentImage: imageData,
+        Images: [...currentSuperhero.Images, imageData],
       },
       {
         new: true,
@@ -44,6 +46,8 @@ class FileService {
     if (!imagePublicId) {
       throw new Error("Please, provide url of image to remove");
     }
+
+    console.log("IMAGEPUBLICID", imagePublicId);
 
     const result = await cloudinaryBase.uploader.destroy(
       imagePublicId,
